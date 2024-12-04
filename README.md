@@ -27,8 +27,8 @@ This project is a simple task planner web application built with **Docker**, **P
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/marfetch/DEVOPS.git
-cd DEVOPS
+git clone https://github.com/marfetch/devops.git
+cd devops
 ```
 ### 2. Setup with Docker Compose
 To get started with the project, you can use Docker Compose to set up and run all the services (Flask and PostgreSQL).
