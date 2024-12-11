@@ -1,4 +1,4 @@
-name: Flask and PostgreSQL
+name: Deployment
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Cache Docker layers
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: /tmp/.buildx-cache
           key: ${{ runner.os }}-docker-${{ github.sha }}
