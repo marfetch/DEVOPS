@@ -4,51 +4,30 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
-    services:
-      postgres:
-        image: postgres:alpine
-        env:
-          POSTGRES_USER: ${POSTGRES_USER}
-          POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-          POSTGRES_DB: ${POSTGRES_DB}
-        ports:
-          - 5432:5432
-        # Ожидание, пока база данных будет готова
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Cache Docker layers
+        uses: actions/cache@v2
         with:
-          python-version: '3.9'
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-docker-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-docker-
 
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
-
-      - name: Build and start Docker containers
-        run: docker-compose -f docker-compose.yml up -d --build
-
-      - name: Check containers status
-        run: |
-          docker-compose ps
-
-      - name: Stop and remove containers
+      - name: Stop and remove old containers
         run: |
           docker-compose down
           docker system prune -f
+
+      - name: Start services with Docker Compose
+        run: docker compose up --build -d
+
