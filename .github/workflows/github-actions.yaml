@@ -25,7 +25,7 @@ jobs:
 
       - name: Stop and remove old containers
         run: |
-          docker-compose down
+          docker compose stop
           docker system prune -f
 
       - name: Start services with Docker Compose
