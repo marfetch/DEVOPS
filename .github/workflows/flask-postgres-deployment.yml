@@ -1,4 +1,4 @@
-name: Deployment
+name: f/p deployment
 
 on:
   push:
@@ -30,4 +30,3 @@ jobs:
 
       - name: Start services with Docker Compose
         run: docker compose up --build -d
-
