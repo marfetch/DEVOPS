@@ -1,6 +1,8 @@
 # DevOps Practice Repo
 
 This project is a simple task planner web application built with **Docker**, **Python + Flask**, and **PostgreSQL** on the MIREA course.
+![image](https://github.com/user-attachments/assets/2fb5a372-dfc3-4944-b080-952cee61953c)
+
 
 ## Features
 
